@@ -116,6 +116,9 @@ class TestProtocol extends FlatSpec with MustMatchers {
   }
 
   it should "deserialize and serialize one Structure object" in {
+//  Fails:
+//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should deserialize and serialize one Structure object FAILED
+//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 6
 
     val sw = new StringWriter
     val pw = new PrintWriter(sw)
@@ -155,6 +158,9 @@ class TestProtocol extends FlatSpec with MustMatchers {
 
   it should "serialize and deserialize one Structure object" in {
 
+//  Fails:
+//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object FAILED
+//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 5
     val sw = new StringWriter
     val pw = new PrintWriter(sw)
 
@@ -192,6 +198,11 @@ class TestProtocol extends FlatSpec with MustMatchers {
   }
 
   it should "serialize and deserialize one Structure object multiple times" in {
+//  Fails:
+//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object multiple times FAILED
+//      scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 5
+//    Mobile Safari 9.0.0 (iOS 9.3.5) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object multiple times FAILED
+//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 875281327
 
     var sw = new StringWriter
     var pw = new PrintWriter(sw)
