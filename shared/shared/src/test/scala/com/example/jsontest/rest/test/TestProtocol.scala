@@ -79,6 +79,42 @@ class TestProtocol extends FlatSpec with MustMatchers {
     sw.toString()
   }
 
+  it should "serialize and deserialize a nested structure object" in {
+
+    val sw = new StringWriter
+    val pw = new PrintWriter(sw)
+
+    try {
+
+      import Data._
+
+      val struct = NestedStructure("x", "yy", "zzz", 1.0, 2.0 )
+
+      pw.println(s"struct is: ${struct}")
+
+      val json = write(struct)
+
+      pw.println(s"json is $json")
+
+      val res = read[NestedStructure](json)
+
+      pw.println(s"json is  : ${json}")
+
+      res mustBe struct
+
+      pw.println("completed successfully")
+    } catch {
+      case x: Throwable =>
+        pw.flush()
+        println( sw.toString() )
+        val s = exceptionToString(x)
+        println( "Caught exception:" )
+        println( s )
+        // fail("Unexpected exception: "+s)
+        throw x
+    }
+  }
+
   it should "deserialize and serialize one Structure object" in {
 
     val sw = new StringWriter
