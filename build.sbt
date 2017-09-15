@@ -5,7 +5,7 @@
 
 lazy val commonSettings = Seq(
   organization  := "com.example.jsontest",
-  scalaVersion  := "2.12.2",
+  scalaVersion  := "2.12.3",
   scalacOptions := Seq(
     "-unchecked" 
     ,"-deprecation"

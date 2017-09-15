@@ -10,6 +10,7 @@ import play.api.libs.json.JsSuccess
 import play.api.libs.json.JsPath
 import play.api.libs.json.JsError
 import play.api.libs.json.Writes
+import scala.scalajs.reflect.annotation.EnableReflectiveInstantiation
 
 object Data {
 
@@ -66,6 +67,7 @@ object Data {
 
 }
 
+@EnableReflectiveInstantiation
 class TestProtocol extends FlatSpec with MustMatchers {
 
   behavior of "Protocol"
