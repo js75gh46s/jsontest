@@ -45,6 +45,11 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
 
   ).
   jvmSettings(
+    testOptions in Test += Tests.Filter(s => { 
+      val rc = !s.endsWith("JS") 
+      println("TestOption use "+s+ " "+rc);
+      rc 
+    })
 
   ).
   jsSettings(
@@ -67,7 +72,13 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
       val trg = new File( ctrg, "scalajs-bundler/test" )
       val file = new File(base, "../karma.conf.js").getCanonicalFile
       java.nio.file.Files.copy(file.toPath, new File(trg, file.name).toPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
-    }
+    },
+    
+    testOptions in Test += Tests.Filter(s => { 
+      val rc = s.endsWith("JS") 
+      println("TestOption use "+s+ " "+rc);
+      rc 
+    })
 
   )
 

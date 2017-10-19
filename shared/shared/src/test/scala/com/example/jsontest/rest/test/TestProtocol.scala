@@ -67,7 +67,9 @@ object Data {
 
 }
 
-@EnableReflectiveInstantiation
+//@EnableReflectiveInstantiation
+class TestProtocolJS extends TestProtocol
+
 class TestProtocol extends FlatSpec with MustMatchers {
 
   behavior of "Protocol"
