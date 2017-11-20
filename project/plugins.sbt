@@ -6,20 +6,22 @@
 
 name := "project-jsontest"
 
+scalaVersion  := "2.12.4"
+
 val vLog4j = "1.7.25"              // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-val vJGit = "4.8.0.201706111038-r" // https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit.pgm
+val vJGit = "4.9.0.201710071750-r" // https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit.pgm
 
-val vScalaJS = "0.6.19"            // http://www.scala-js.org/
+val vScalaJS = "0.6.21"            // http://www.scala-js.org/
 //val vScalaJS = "1.0.0-M1"            // http://www.scala-js.org/
-val vSbtAssembly = "0.14.5"        // https://github.com/sbt/sbt-assembly
+val vSbtAssembly = "0.14.6"        // https://github.com/sbt/sbt-assembly
 val vSbtGit = "0.9.3"              // https://github.com/sbt/sbt-git
-val vSbtSCoverage = "1.5.0"        // https://github.com/scoverage/sbt-scoverage
+val vSbtSCoverage = "1.5.1"        // https://github.com/scoverage/sbt-scoverage
 val vSbtBuildInfo = "0.7.0"        // https://github.com/sbt/sbt-buildinfo
-val vSbtRelease = "1.0.5"          // https://github.com/sbt/sbt-release
-val vSbtEclipse = "5.1.0"          // https://github.com/typesafehub/sbteclipse
+val vSbtRelease = "1.0.6"          // https://github.com/sbt/sbt-release
+val vSbtEclipse = "5.2.4"          // https://github.com/typesafehub/sbteclipse
 
-val vSbtGzip = "1.0.1"             // https://github.com/sbt/sbt-gzip
-val vSbtScalaJsBundler = "0.6.0"   // https://github.com/scalacenter/scalajs-bundler
+val vSbtGzip = "1.0.2"             // https://github.com/sbt/sbt-gzip
+val vSbtScalaJsBundler = "0.9.0"   // https://github.com/scalacenter/scalajs-bundler
 
 // not used:
 

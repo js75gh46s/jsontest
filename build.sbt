@@ -3,9 +3,11 @@
 //   server/compile:assembly::assembledMappings
 //
 
+scalaVersion  := "2.12.4"
+
 lazy val commonSettings = Seq(
   organization  := "com.example.jsontest",
-  scalaVersion  := "2.12.2",
+  scalaVersion  := "2.12.4",
   scalacOptions := Seq(
     "-unchecked" 
     ,"-deprecation"
@@ -36,11 +38,11 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
     EclipseKeys.useProjectId := true,
 
     libraryDependencies ++= Seq(
-      "com.typesafe.play" %%% "play-json" % "2.6.3" withSources(),
+      "com.typesafe.play" %%% "play-json" % "2.6.7" withSources(),
 //      "com.typesafe.play" %%% "play-json" % "2.7.0-SNAPSHOT" withSources(),
       
-      "org.scalatest" %%% "scalatest" % "3.0.3" % "test" withSources(),
-      "org.scalactic" %%% "scalactic" % "3.0.3" withSources()
+      "org.scalatest" %%% "scalatest" % "3.0.4" % "test" withSources(),
+      "org.scalactic" %%% "scalactic" % "3.0.4" withSources()
     )
 
   ).
@@ -49,15 +51,19 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
   ).
   jsSettings(
     requiresDOM in Test := true,
+//    jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv,
     skip in packageJSDependencies := false,
+    npmDependencies in Test ++= Seq(
+//      "jsdom" -> "11.4.0"
+    ),
     npmDevDependencies in Test ++= Seq(
       "karma" -> "1.7.0",
       "karma-chrome-launcher" -> "2.2.0",
-      "karma-scalajs-scalatest" -> "0.1.0"
+      "karma-custom" -> "1.1.9"
     ),
 
-    version in webpack := vWebPack,
-    version in installJsdom := vJsDom,
+//    version in webpack := vWebPack,
+//    version in installJsdom := vJsDom,
 
     buildKarma := {
       val x = (fastOptJS in Test).value
@@ -65,8 +71,12 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
       val base = baseDirectory.value
       val ctrg = crossTarget.value
       val trg = new File( ctrg, "scalajs-bundler/test" )
-      val file = new File(base, "../karma.conf.js").getCanonicalFile
-      java.nio.file.Files.copy(file.toPath, new File(trg, file.name).toPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+      val file = new File(base, "../karma.conf.js").getCanonicalFile ::
+                 new File(base, "../testmain.js").getCanonicalFile ::
+                 Nil
+      file.foreach { f => 
+        java.nio.file.Files.copy(f.toPath, new File(trg, f.name).toPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+      }
     }
 
   )

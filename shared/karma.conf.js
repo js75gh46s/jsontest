@@ -1,10 +1,16 @@
 module.exports = function(config) {
   config.set({
-    plugins: ['karma-chrome-launcher', 'karma-scalajs-scalatest'],
+    plugins: [
+    	'karma-chrome-launcher',
+    	'karma-custom'
+    ],
     reporters: ['progress'],
-    frameworks: ['scalajs-scalatest'],
+    frameworks: [
+    	'custom'
+    ],
     files: [
-      'jsontest-shared-test-fastopt-bundle.js'
+      'jsontest-shared-test-fastopt-bundle.js',
+      'testmain.js'
     ],
 
     browsers: process.env.TRAVIS ? ['Firefox'] : ['Chrome'],

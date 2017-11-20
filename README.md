@@ -1,12 +1,14 @@
 # jsontest
 
+[![Build Status](https://travis-ci.org/js75gh46s/jsontest.svg?branch=master)](https://travis-ci.org/js75gh46s/jsontest)
+
 This repository is to show a bug with play-json and scala.js.
 
 Uses:
-- scala 2.12.2
-- scala.js 0.6.19
-- play-json 2.6.3
-- scalajs bundler 0.6.0
+- scala 2.12.4
+- scala.js 0.6.21
+- play-json 2.6.7
+- scalajs bundler 0.9.0
 
 See other dependencies in plugins.sbt and build.sbt
 

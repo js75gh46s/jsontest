@@ -10,6 +10,7 @@ import play.api.libs.json.JsSuccess
 import play.api.libs.json.JsPath
 import play.api.libs.json.JsError
 import play.api.libs.json.Writes
+import play.api.libs.json._
 
 object Data {
 
@@ -66,9 +67,7 @@ object Data {
 
 }
 
-class TestProtocol extends FlatSpec with MustMatchers {
-
-  behavior of "Protocol"
+class TestProtocol extends MustMatchers {
 
 
   def exceptionToString( ex: Throwable ) = {
@@ -79,47 +78,8 @@ class TestProtocol extends FlatSpec with MustMatchers {
     sw.toString()
   }
 
-  it should "serialize and deserialize a nested structure object" in {
-
-    val sw = new StringWriter
-    val pw = new PrintWriter(sw)
-
-    try {
-
-      import Data._
-
-      val struct = NestedStructure("x", "yy", "zzz", 1.0, 2.0 )
-
-      pw.println(s"struct is: ${struct}")
-
-      val json = write(struct)
-
-      pw.println(s"json is $json")
-
-      val res = read[NestedStructure](json)
-
-      pw.println(s"json is  : ${json}")
-
-      res mustBe struct
-
-      pw.println("completed successfully")
-    } catch {
-      case x: Throwable =>
-        pw.flush()
-        println( sw.toString() )
-        val s = exceptionToString(x)
-        println( "Caught exception:" )
-        println( s )
-        // fail("Unexpected exception: "+s)
-        throw x
-    }
-  }
-
-  it should "deserialize and serialize one Structure object" in {
-//  Fails:
-//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should deserialize and serialize one Structure object FAILED
-//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 6
-
+//  it should "deserialize and serialize one Structure object" in {
+  def test1() = {
     val sw = new StringWriter
     val pw = new PrintWriter(sw)
 
@@ -146,29 +106,24 @@ class TestProtocol extends FlatSpec with MustMatchers {
       pw.println("completed successfully")
     } catch {
       case x: Throwable =>
-        pw.flush()
-        println( sw.toString() )
         val s = exceptionToString(x)
         println( "Caught exception:" )
         println( s )
         // fail("Unexpected exception: "+s)
         throw x
+    } finally {
+      pw.flush()
+      println( sw.toString() )
     }
   }
 
-  it should "serialize and deserialize one Structure object" in {
-
-//  Fails:
-//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object FAILED
-//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 5
+//  it should "serialize and deserialize one Structure object" in {
+  def test2() = {
     val sw = new StringWriter
     val pw = new PrintWriter(sw)
 
     try {
-      val txt = SampleData.oneStructurePrettyJSON
       import Data._
-
-      pw.println(s"parsing $txt")
 
       val struct = SampleData.sampleData
 
@@ -187,23 +142,19 @@ class TestProtocol extends FlatSpec with MustMatchers {
       pw.println("completed successfully")
     } catch {
       case x: Throwable =>
-        pw.flush()
-        println( sw.toString() )
         val s = exceptionToString(x)
         println( "Caught exception:" )
         println( s )
         // fail("Unexpected exception: "+s)
         throw x
+    } finally {
+      pw.flush()
+      println( sw.toString() )
     }
   }
 
-  it should "serialize and deserialize one Structure object multiple times" in {
-//  Fails:
-//    Mobile Safari 10.0.0 (iOS 10.3.3) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object multiple times FAILED
-//      scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 5
-//    Mobile Safari 9.0.0 (iOS 9.3.5) com.example.jsontest.rest.test.TestProtocol Protocol should serialize and deserialize one Structure object multiple times FAILED
-//        scala.scalajs.runtime.UndefinedBehaviorError: An undefined behavior was detected: 875281327
-
+//  it should "serialize and deserialize one Structure object multiple times" in {
+  def test3() = {
     var sw = new StringWriter
     var pw = new PrintWriter(sw)
 
@@ -238,13 +189,48 @@ class TestProtocol extends FlatSpec with MustMatchers {
       pw.println("completed successfully")
     } catch {
       case x: Throwable =>
-        pw.flush()
-        println( sw.toString() )
         val s = exceptionToString(x)
-        println( "Caught exception:" )
-        println( s )
+        pw.println( s"Caught exception on iteration ${count}:" )
+        pw.println( s )
         // fail("Unexpected exception: "+s)
         throw x
+    } finally {
+      pw.flush()
+      println( sw.toString() )
+    }
+  }
+
+//  it should "serialize and deserialize array Structure object" in {
+  def test4() = {
+    var sw = new StringWriter
+    var pw = new PrintWriter(sw)
+
+    try {
+      import Data._
+      val txt =SampleData.arrayStructure()
+
+      pw.println(s"txt=${txt}")
+      val array = read[Array[Structure]](txt)
+      pw.println(s"Array=${array}")
+      val json = write(array)
+      pw.println(s"json=${json}")
+      val array2 = read[Array[Structure]](json)
+
+      pw.println(s"Array2=${array2}")
+
+      array mustBe array2
+
+      pw.println("completed successfully")
+    } catch {
+      case x: Throwable =>
+        val s = exceptionToString(x)
+        pw.println( "Caught exception:" )
+        pw.println( s )
+        // fail("Unexpected exception: "+s)
+        throw x
+    } finally {
+      pw.flush()
+      println( sw.toString() )
     }
   }
 
@@ -323,5 +309,12 @@ object SampleData {
   "updated" : 1484191268756
 }
 """
+
+  def arrayStructure() = {
+    val r = 1 to 3
+    r.map { i =>
+      oneStructurePrettyJSON
+    }.mkString("[\n", ",\n", "\n]")
+  }
 
 }
