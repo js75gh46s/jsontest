@@ -7,5 +7,5 @@ addons:
   
 script:
   - sbt test
-  - runKarma.sh
+  - ./runKarma.sh
   
