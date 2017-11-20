@@ -13,7 +13,7 @@ module.exports = function(config) {
       'testmain.js'
     ],
 
-    browsers: process.env.TRAVIS ? ['Firefox'] : ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome'] : ['Chrome'],
 
     autoWatch: true,
 
