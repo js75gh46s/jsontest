@@ -20,7 +20,13 @@ lazy val commonSettings = Seq(
   EclipseKeys.withSource := true
 )
 
+val Node = new scalajsbundler.ExternalCommand("node")
+
 lazy val buildKarma = TaskKey[Unit]("buildKarma")
+lazy val karma = TaskKey[Unit]("karma")
+lazy val karmaSingle = TaskKey[Unit]("karmaSingle")
+lazy val runKarma = TaskKey[Unit]("runKarma")
+lazy val runKarmaSingle = TaskKey[Unit]("runKarmaSingle")
 
 lazy val vWebPack = "2.6.1"          // https://www.npmjs.com/package/webpack
 lazy val vJsDom = "9.12.0"           // https://www.npmjs.com/package/jsdom
@@ -65,7 +71,7 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
 //    version in webpack := vWebPack,
 //    version in installJsdom := vJsDom,
 
-    buildKarma := {
+    buildKarma in Test := {
       val x = (fastOptJS in Test).value
       val y = (test in Test).value
       val base = baseDirectory.value
@@ -77,7 +83,26 @@ lazy val `jsontest-shared` = crossProject.in(file("shared")).
       file.foreach { f => 
         java.nio.file.Files.copy(f.toPath, new File(trg, f.name).toPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
       }
-    }
+    },
+
+    karma in Test := {
+      val log = streams.value.log
+      val base = baseDirectory.value
+      val workdir = new File(base, "target/scala-2.12/scalajs-bundler/test").getCanonicalFile
+
+      Node.run("./node_modules/karma/bin/karma", "start", "karma.conf.js")(workdir,log)      
+    },
+
+    karmaSingle in Test := {
+      val log = streams.value.log
+      val base = baseDirectory.value
+      val workdir = new File(base, "target/scala-2.12/scalajs-bundler/test").getCanonicalFile
+
+      Node.run("./node_modules/karma/bin/karma", "start", "karma.conf.js", "--single-run")(workdir,log)      
+    },
+
+    runKarma in Test := Def.sequential( buildKarma in Test, karma in Test).value,
+    runKarmaSingle in Test := Def.sequential( buildKarma in Test, karmaSingle in Test ).value
 
   )
 
