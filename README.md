@@ -12,7 +12,7 @@ Uses:
 
 See other dependencies in plugins.sbt and build.sbt
 
-The file [TestProtocol.scala](shared/shared/src/test/scala/com/example/jsontest/rest/test/TestProtocol.scala) contains the failing tests.  The tests work on Windows Chrome and Firefox.  They only fail on iOS Mobile Safari.  The results of the karma tests are:
+The file [TestProtocol.scala](shared/shared/src/test/scala/com/example/jsontest/rest/test/TestProtocol.scala) contains the failing tests.  The tests work on Windows Chrome and Firefox.  They only fail on iOS Mobile Safari versions 9.3.5 and 10.3.3.  It works on iOS 11.  The results of the karma tests are:
 
     Firefox 55.0.0 (Windows 10 0.0.0): Executed 4 of 1 SUCCESS (0 secs / 0.613 secs)
     Chrome 60.0.3112 (Windows 10 0.0.0): Executed 4 of 1 SUCCESS (0.373 secs / 0.359 secs)
