@@ -13,7 +13,14 @@ module.exports = function(config) {
       'testmain.js'
     ],
 
-    browsers: process.env.TRAVIS ? ['Chrome'] : ['Chrome'],
+    browsers: process.env.TRAVIS ? ['ChromeNoSandbox'] : ['Chrome'],
+
+    customLaunchers: {
+      ChromeNoSandbox: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     autoWatch: true,
 
