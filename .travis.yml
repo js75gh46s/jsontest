@@ -1,15 +1,19 @@
 language: scala
 scala:
-   - 2.12.4
-
+- 2.12.4
 addons:
   chrome: stable
-  
 before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 script:
-  - sbt test
-  - ./runKarma.sh
-  
+- sbt test
+- "./runKarma.sh"
+deploy:
+  provider: releases
+  api_key:
+    secure: lQ2uh1dZurQQTcuPgFkmbJevXhV5sUJVfwna4AtKRyShqfGPRH6amWC7owdbItUxGJwNY5t84LTD3eMiSfwlas44CMEvQM2RmcxzhjyGDrLuYRofaXvQBHXqNagqesBfNNE4iQYS/hBXPcCTgnn8ZvgDQrCf+cQLC/Xy2AmplGwS8/6I85ZxNBj2Nfa4FesWWKNGhVehH97GOQTbCoMccekLxdCfUtKRXAJdNlHsAqGqunrVhvOITkpnZR7QvGkFYSJFbrrH0LU9+WpcpXhn1GZdf1+3G3j3K6P4bfBoNZ7puhODUDZoMNNZFaAsrHtzO/PTMFc92RildwBh+gOaVO5JeY6RQMFxkAwaDKD0WzMlkg9cTD5iK+QzdOK+OuJ/zNnATy8PbJuWm/ft8xtK5F64/X2DDbY3ctyzo8vzPgxxPBF/leXfXV3tRGAFj8yq3p3Vib2FrZTkdd3xzJcpdn6Z1jKZvpzAjLAIlGIGOe4uu4JL1W1l0/sDsc4ed92ebe9gyOkOjy6Pthi4wwX4drq7YwvJWopYIG9CjsgfkmJguXPNzooBNqvoSzM3blLCKRVgvGTQROciEQSy+zpDr/YV/3PUBfVyzv8K0nnhhP65xZVtdyydhHXxSjd9yrW7gQnEkqJMrEgo5t4trIYq6LCfCLYT+xsHGZ79DME249Y=
+  file: README.md
+  on:
+    repo: js75gh46s/jsontest
+    tags: true
